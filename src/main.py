@@ -33,3 +33,11 @@ async def bus_info(request: Request, bus_line: str = Form(...)) -> str:
         "bus_info.html", {"request": request, "data": data},
         block_name="content",
     )
+
+
+@app.get("/test", response_class=HTMLResponse)
+async def mytest(request: Request) -> str:
+    return templates.TemplateResponse(
+        "test.html", {"request": request, "data": []},
+        block_name=None,
+    )

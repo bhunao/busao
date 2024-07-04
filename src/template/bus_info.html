@@ -1,51 +1,101 @@
 {% extends "base.html" %}
-{% block content %}
+    {% block content %}
 
-<div class="container pb-3">
-    <h2>{{ title }}</h2>
+<div class="flex min-h-screen w-full flex-col bg-muted/40">
+    <header class="sticky top-0 z-30 flex h-14 items-center gap-4 border-b bg-background px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <nav aria-label="breadcrumb" class="hidden md:flex">
+            <ol class="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
+                <li class="inline-flex items-center gap-1.5"></li>
+                <li aria-hidden="true" class="[&amp;>svg]:size-3.5" role="presentation">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="lucide lucide-chevron-right"
+                    >
+                        <path d="m9 18 6-6-6-6"></path>
+                    </svg>
+                </li>
+                <li class="inline-flex items-center gap-1.5">
+                    <span aria-current="page" aria-disabled="true" class="font-normal text-foreground" role="link">
+                        Bus Data
+                    </span>
+                </li>
+            </ol>
+        </nav>
+        <div class="relative ml-auto flex-1 md:grow-0">
+            <form hx-post="/" hx-swap="innerHTML" hx-target="#page">
+                <input
+                    class="flex h-10 border border-input px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 w-full rounded-lg bg-background pl-8 md:w-[200px] lg:w-[336px]"
+                    placeholder="Search..."
+                    type="search"
+                    name="bus_line"
+                    id="bus_line"
+                />
+            </form>
+        </div>
+    </header>
+    <main class="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+        <div class="rounded-lg border bg-card text-card-foreground shadow-sm w-full" data-v0-t="card">
+            <div class="flex flex-col space-y-1.5 p-6">
+                <h3 class="whitespace-nowrap text-2xl font-semibold leading-none tracking-tight">Bus Data</h3>
+                <p class="text-sm text-muted-foreground">View and manage the bus data for your transportation system.</p>
+            </div>
+            <div class="p-6">
+                <div class="relative w-full overflow-auto">
+                    <table class="w-full caption-bottom text-sm">
+                        <thead class="[&amp;_tr]:border-b">
+                            <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    cl
+                                </th>
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    lc
+                                </th>
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    lt
+                                </th>
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    tl
+                                </th>
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    sl
+                                </th>
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    tp
+                                </th>
+                                <th class="h-12 px-4 text-left align-middle font-medium text-muted-foreground [&amp;:has([role=checkbox])]:pr-0">
+                                    ts
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="[&amp;_tr:last-child]:border-0">
+                            {% for line in data %}
+                            <tr class="border-b transition-colors hover:bg-muted/50 data-[state=selected]:bg-muted">
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.cl }}</td>
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.lc }}</td>
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.lt }}</td>
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.sl }}</td>
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.tl }}</td>
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.tp }}</td>
+                                <td class="p-4 align-middle [&amp;:has([role=checkbox])]:pr-0">{{ line.ts }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
 </div>
 
-
-    <div class="container border">
-
-        <form class="mb-3 p-3" id="source-form" hx-post="/" hx-trigger="submit" hx-swap="innerHTML" hx-target="#page">
-            <div class="mb-3">
-                <label for="bus_line" class="form-label">Linha de Onibus:</label>
-                <input type="text" name="bus_line" class="form-control" id="bus_line">
-            </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        
-    <hr>
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">cl: códig identificador</th>
-                    <th scope="col">lc: modo circular</th>
-                    <th scope="col">lt: 1parte letreiro</th>
-                    <th scope="col">tl: 2parte letreiro</th>
-                    <th scope="col">sl: sentido da linha</th>
-                    <th scope="col">tp: descrição principal</th>
-                    <th scope="col">ts: descrição secundaria</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for line in data %}
-                <tr>
-                    <td>{{ line.cl }}</td>
-                    <td>{{ line.lc }}</td>
-                    <td>{{ line.lt }}</td>
-                    <td>{{ line.sl }}</td>
-                    <td>{{ line.tl }}</td>
-                    <td>{{ line.tp }}</td>
-                    <td>{{ line.ts }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-
-    </div>
+</div>
 
 
 {% endblock %}
