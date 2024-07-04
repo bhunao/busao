@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container pb-3">
+    <h2>{{ title }}</h2>
+</div>
+
+
+    <div class="container border">
+
+        <form class="mb-3 p-3" id="source-form" hx-post="/" hx-trigger="submit" hx-swap="innerHTML" hx-target="#page">
+            <div class="mb-3">
+                <label for="bus_line" class="form-label">Linha de Onibus:</label>
+                <input type="text" name="bus_line" class="form-control" id="bus_line">
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        
+    <hr>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">cl: códig identificador</th>
+                    <th scope="col">lc: modo circular</th>
+                    <th scope="col">lt: 1parte letreiro</th>
+                    <th scope="col">tl: 2parte letreiro</th>
+                    <th scope="col">sl: sentido da linha</th>
+                    <th scope="col">tp: descrição principal</th>
+                    <th scope="col">ts: descrição secundaria</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for line in data %}
+                <tr>
+                    <td>{{ line.cl }}</td>
+                    <td>{{ line.lc }}</td>
+                    <td>{{ line.lt }}</td>
+                    <td>{{ line.sl }}</td>
+                    <td>{{ line.tl }}</td>
+                    <td>{{ line.tp }}</td>
+                    <td>{{ line.ts }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+
+
+{% endblock %}
+
